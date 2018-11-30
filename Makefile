@@ -1,8 +1,8 @@
 all:
-	cd php-base && docker build -f Dockerfile.cli -t dailygrommet/php-cli-base .
-	cd php-base && docker build -f Dockerfile.fpm -t dailygrommet/php-fpm-base .
-	cd circleci-php && docker build -t dailygrommet/circleci-php .
+	docker build -f php-base/Dockerfile.cli -t dailygrommet/php-cli-base php-base/.
+	docker build -f php-base/Dockerfile.fpm -t dailygrommet/php-fpm-base php-base/.
+	docker build -t dailygrommet/circleci-php circleci-php/.
 push:
-	cd php-base && docker push dailygrommet/php-cli-base 
-	cd php-base && docker push dailygrommet/php-fpm-base
-	cd circleci-php && docker push dailygrommet/circleci-php
+	docker push dailygrommet/php-cli-base
+	docker push dailygrommet/php-fpm-base
+	docker push dailygrommet/circleci-php
