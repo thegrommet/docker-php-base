@@ -12,20 +12,11 @@ RUN apt-get install -y \
         libxml2-dev \
         libxslt-dev \
         libc-client-dev \
-        libkrb5-dev \
-        gnupg2
+        libkrb5-dev
 
 RUN docker-php-ext-install -j$(nproc) bcmath intl json mbstring mcrypt pdo_mysql soap xml xsl zip && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install -j$(nproc) gd
-
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-    apt-get install -y nodejs
-
-RUN apt-get install -y git
-RUN apt-get install -y wget
-RUN apt-get install -y libappindicator3-1 fonts-liberation libasound2 libatk-bridge2.0-0 libgtk-3-0 libnspr4 libnss3 libx11-xcb1 libxss1 libxtst6 xdg-utils
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && dpkg -i google-chrome*.deb
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY cacert.pem /usr/local/etc/php/cacert.pem
