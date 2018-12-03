@@ -1,5 +1,5 @@
 FROM dailygrommet/php-cli-base
-LABEL description="The Grommet PHP for Circle CI"
+LABEL description="The Grommet PHP for CI"
 LABEL maintainer="aria@thegrommet.com"
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
