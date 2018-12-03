@@ -18,3 +18,13 @@ RUN pecl install xdebug-2.7.0beta1 && \
     chown www-data:www-data /var/log/xdebug.log
 
 COPY xdebug.ini /usr/local/etc/php/conf.d/
+
+RUN groupadd --gid 3434 ci \
+  && useradd --uid 3434 --gid ci --shell /bin/bash --create-home ci
+
+# Install composer
+RUN php -r "copy('https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer', 'composer-setup.php');" &&     php composer-setup.php &&     php -r "unlink('composer-setup.php');" &&     mv composer.phar /usr/local/bin/composer
+
+USER ci
+
+CMD ["/bin/sh"]
