@@ -2,9 +2,9 @@ FROM dailygrommet/php-cli-base
 LABEL description="The Grommet PHP for CI"
 LABEL maintainer="aria@thegrommet.com"
 
+RUN apt-get install -y gnupg2
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get install -y \
-        gnupg2 \
         nodejs \
         git \
         wget \
