@@ -2,8 +2,8 @@ FROM dailygrommet/php-cli-base
 LABEL description="The Grommet PHP for CI"
 LABEL maintainer="aria@thegrommet.com"
 
-RUN apt-get install -y gnupg2
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+RUN apt-get install -y gnupg2 && \
+    curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get install -y \
         nodejs \
         git \
@@ -21,9 +21,6 @@ COPY xdebug.ini /usr/local/etc/php/conf.d/
 
 RUN groupadd --gid 3434 ci \
   && useradd --uid 3434 --gid ci --shell /bin/bash --create-home ci
-
-# Install composer
-RUN php -r "copy('https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer', 'composer-setup.php');" &&     php composer-setup.php &&     php -r "unlink('composer-setup.php');" &&     mv composer.phar /usr/local/bin/composer
 
 USER ci
 
