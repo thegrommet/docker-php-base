@@ -12,7 +12,8 @@ RUN apt-get install -y \
         libxml2-dev \
         libxslt-dev \
         libc-client-dev \
-        libkrb5-dev
+        libkrb5-dev \
+        unzip
 
 RUN docker-php-ext-install -j$(nproc) bcmath intl json mbstring mcrypt opcache pdo_mysql soap xml xsl zip && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
