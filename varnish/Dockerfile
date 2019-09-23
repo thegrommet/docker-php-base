@@ -7,9 +7,6 @@ ENV VARNISH_SHA256 3fbafc49b043c3e3852f6d889f0fee8058d958397345756efc12bb22b0b75
 ENV VARNISH_MODULES_VERSION 0.15.0
 ENV VMOD_QUERYSTRING_VERSION 2.0.1
 
-ENV VARNISH_MEMORY 32M
-ENV VARNISH_PORT 6081
-
 RUN set -eux; \
   addgroup -S varnish; \
   for user in varnish vcache; do \
@@ -121,6 +118,10 @@ RUN set -eux; \
 WORKDIR /
 
 RUN chown -R varnish:varnish /usr/local/var/varnish
+
+ENV VARNISH_MEMORY 32M
+ENV VARNISH_PORT 6081
+ENV VARNISHLOG_ENABLED 0
 
 ADD ./entrypoint.sh /entrypoint
 RUN chmod +x /entrypoint
