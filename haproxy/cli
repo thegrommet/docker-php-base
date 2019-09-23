@@ -1,2 +1,2 @@
-#!/bin/bash
-exec socat READLINE /var/lib/haproxy/stats
+#!/bin/sh
+exec socat tcp-connect:localhost:8081 readline

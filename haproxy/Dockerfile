@@ -28,7 +28,7 @@ RUN apk add --no-cache --virtual build-deps gcc libc-dev \
     chown "$HAPROXY_UID:$HAPROXY_GID" /var/lib/haproxy && \
     rm -rf /tmp/haproxy && \
     apk del build-deps
-RUN apk add --no-cache openssl zlib lua5.3-libs pcre2 syslog-ng && \
+RUN apk add --no-cache openssl zlib lua5.3-libs pcre2 socat syslog-ng && \
     rm -f /var/cache/apk/*
 
 ADD ./cli /usr/bin/cli
