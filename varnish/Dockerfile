@@ -11,27 +11,27 @@ ENV VARNISH_MEMORY 32M
 ENV VARNISH_PORT 6081
 
 RUN set -eux; \
-	addgroup -S varnish; \
-	for user in varnish vcache; do \
-		adduser -S -G varnish $user; \
-	done
+  addgroup -S varnish; \
+  for user in varnish vcache; do \
+    adduser -S -G varnish $user; \
+  done
 
 # dependencies required for building VMOD (Varnish modules)
 ENV VMOD_BUILD_DEPS \
-		autoconf \
-		# autoconf-archive \
-		automake \
-		libtool \
-		make \
-		pkgconf \
-		python3 \
+    autoconf \
+    # autoconf-archive \
+    automake \
+    libtool \
+    make \
+    pkgconf \
+    python3 \
     file \
     py-docutils
 
 # persistent / runtime deps
 RUN apk add --no-cache --virtual .persistent-deps \
-		gcc \
-		libgcc \
+    gcc \
+    libgcc \
     libc-dev
 
 COPY *.patch /build/varnish-patches/
@@ -39,48 +39,48 @@ COPY *.patch /build/varnish-patches/
 WORKDIR /build
 
 RUN set -eux; \
-	\
-	fetchDeps=' \
-		ca-certificates \
-		curl \
-	'; \
-	buildDeps=" \
-		$VMOD_BUILD_DEPS \
-		coreutils \
-		dpkg \
-		dpkg-dev \
-		libedit-dev \
-		libexecinfo-dev \
-		linux-headers \
-		ncurses-dev \
-		patch \
-		pcre-dev \
-	"; \
-	apk add --no-cache --virtual .build-deps $fetchDeps $buildDeps; \
-	\
-	curl -sfSL "$VARNISH_SRC_URL/varnish-$VARNISH_VERSION.tgz" -o varnish.tgz; \
-	\
-	if [ -n "$VARNISH_SHA256" ]; then \
-		echo "$VARNISH_SHA256 varnish.tgz" | sha256sum -c -; \
-	fi; \
-	\
-	mkdir -p varnish; \
-	tar -zxf varnish.tgz -C varnish --strip-components=1; \
-	\
-	cd varnish; \
-	for p in /build/varnish-patches/*.patch; do \
-		[ -f "$p" ] || continue; \
-		patch -p1 -i "$p"; \
-	done; \
-	gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)"; \
-	./autogen.sh; \
-	./configure \
-		--build="$gnuArch" \
-		--without-jemalloc \
-		--with-sphinx-build=$(command -v true) \
-	; \
-	make -j "$(nproc)"; \
-	make install; \
+  \
+  fetchDeps=' \
+    ca-certificates \
+    curl \
+  '; \
+  buildDeps=" \
+    $VMOD_BUILD_DEPS \
+    coreutils \
+    dpkg \
+    dpkg-dev \
+    libedit-dev \
+    libexecinfo-dev \
+    linux-headers \
+    ncurses-dev \
+    patch \
+    pcre-dev \
+  "; \
+  apk add --no-cache --virtual .build-deps $fetchDeps $buildDeps; \
+  \
+  curl -sfSL "$VARNISH_SRC_URL/varnish-$VARNISH_VERSION.tgz" -o varnish.tgz; \
+  \
+  if [ -n "$VARNISH_SHA256" ]; then \
+    echo "$VARNISH_SHA256 varnish.tgz" | sha256sum -c -; \
+  fi; \
+  \
+  mkdir -p varnish; \
+  tar -zxf varnish.tgz -C varnish --strip-components=1; \
+  \
+  cd varnish; \
+  for p in /build/varnish-patches/*.patch; do \
+    [ -f "$p" ] || continue; \
+    patch -p1 -i "$p"; \
+  done; \
+  gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)"; \
+  ./autogen.sh; \
+  ./configure \
+    --build="$gnuArch" \
+    --without-jemalloc \
+    --with-sphinx-build=$(command -v true) \
+  ; \
+  make -j "$(nproc)"; \
+  make install; \
   mkdir -p /etc/varnish; \
   install -c -m 0644 -o varnish -g varnish etc/example.vcl /etc/varnish/default.vcl; \
   \
@@ -105,17 +105,17 @@ RUN set -eux; \
   make install; \
   \
   cd  /; \
-	rm -rf /build /usr/local/include; \
-	\
-	runDeps="$( \
-		scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
-			| tr ',' '\n' \
-			| sort -u \
-			| awk 'system("[ -e /usr/local/lib/" $1 " ] || [ -e /usr/local/lib/varnish/" $1 " ]") == 0 { next } { print "so:" $1 }' \
-	)"; \
-	apk add --no-cache --virtual .varnish-rundeps $runDeps; \
-	\
-	apk del .build-deps; \
+  rm -rf /build /usr/local/include; \
+  \
+  runDeps="$( \
+    scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
+      | tr ',' '\n' \
+      | sort -u \
+      | awk 'system("[ -e /usr/local/lib/" $1 " ] || [ -e /usr/local/lib/varnish/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+  )"; \
+  apk add --no-cache --virtual .varnish-rundeps $runDeps; \
+  \
+  apk del .build-deps; \
   rm -rf /var/cache/apk/* /usr/local/var/varnish/*
 
 WORKDIR /
