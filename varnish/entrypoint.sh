@@ -2,7 +2,7 @@
 
 _VARNISH_PARAMS="\
   -s malloc,${VARNISH_MEMORY} \
-  -a :${VARNISH_PORT},PROXY \
+  -a :${VARNISH_PORT} \
   -f /etc/varnish/default.vcl \
   -p http_resp_hdr_len=131072 \
   -p http_resp_size=163840 \
