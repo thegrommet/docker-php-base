@@ -3,7 +3,7 @@ LABEL description="The Grommet PHP for CI"
 LABEL maintainer="aria@thegrommet.com"
 
 RUN apt-get install -y gnupg2 && \
-    curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y \
         nodejs \
         git \
