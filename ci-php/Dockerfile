@@ -1,4 +1,4 @@
-FROM dailygrommet/php-cli-base
+FROM dailygrommet/php-cli-base:7.3
 LABEL description="The Grommet PHP for CI"
 LABEL maintainer="aria@thegrommet.com"
 
