@@ -1,4 +1,4 @@
-FROM dailygrommet/php-cli-base
+FROM dailygrommet/php-cli-base:7.3
 LABEL description="The Grommet PHP for CI"
 LABEL maintainer="aria@thegrommet.com"
 
@@ -12,7 +12,7 @@ RUN apt-get install -y gnupg2 && \
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     dpkg -i google-chrome*.deb
 
-RUN pecl install xdebug-2.7.2 && \
+RUN pecl install xdebug-2.9.4 && \
     docker-php-ext-enable xdebug && \
     touch /var/log/xdebug.log && \
     chown www-data:www-data /var/log/xdebug.log
