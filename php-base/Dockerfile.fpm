@@ -1,24 +1,5 @@
-FROM php:7.3-fpm
+FROM dailygrommet/php-cli-base
 LABEL description="The Grommet PHP FPM Base"
 LABEL maintainer="todd@thegrommet.com"
 
-RUN apt-get update && apt-get install -y \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libicu-dev \
-    libpng-dev \
-    libxml2-dev \
-    libxslt-dev \
-    libc-client-dev \
-    libkrb5-dev \
-    libzip-dev \
-    unzip
-
-RUN docker-php-ext-install -j$(nproc) bcmath intl json mbstring opcache pdo_mysql soap xml xsl zip && \
-    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install -j$(nproc) gd
-
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-COPY cacert.pem /usr/local/etc/php/
-COPY php.ini /usr/local/etc/php/
 COPY php-fpm.conf /usr/local/etc/php-fpm.d/zz-my-fpm.conf
