@@ -1,5 +1,0 @@
-FROM dailygrommet/php-cli-base
-LABEL description="The Grommet PHP FPM Base"
-LABEL maintainer="todd@thegrommet.com"
-
-COPY php-fpm.conf /usr/local/etc/php-fpm.d/zz-my-fpm.conf
