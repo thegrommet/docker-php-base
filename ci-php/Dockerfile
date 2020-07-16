@@ -16,13 +16,16 @@ RUN apt-get install -y \
     xdg-utils \
     libgbm1 \
     gcc \
+    g++ \
 && \
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     dpkg -i google-chrome*.deb && \
     rm google-chrome*.deb \
 && \
     pecl install xdebug-2.9.6 && \
-    docker-php-ext-enable xdebug
+    docker-php-ext-enable xdebug \
+&& \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN groupadd --gid 3434 ci \
   && useradd --uid 3434 --gid ci --shell /bin/bash --create-home ci
