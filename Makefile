@@ -43,6 +43,6 @@ push:
 	docker push dailygrommet/php-cli-base:$(TAG)
 	docker push dailygrommet/php-fpm-base:$(TAG)
 	docker push dailygrommet/ci-php:$(TAG)
-	docker push dailygrommet/awscli:latest
-	docker push dailygrommet/haproxy:latest
-	docker push dailygrommet/varnish:latest
+#	docker push dailygrommet/awscli:latest
+#	docker push dailygrommet/haproxy:latest
+#	docker push dailygrommet/varnish:latest
