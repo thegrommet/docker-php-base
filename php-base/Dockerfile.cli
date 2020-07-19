@@ -1,4 +1,4 @@
-FROM dailygrommet/php-base
+FROM dailygrommet/php-fpm-base
 LABEL description="The Grommet PHP CLI Base"
 LABEL maintainer="todd@thegrommet.com"
 
