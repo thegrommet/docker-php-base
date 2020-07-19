@@ -27,8 +27,8 @@ all: build tag push
 
 
 build:
+	docker build -f php-base/Dockerfile -t dailygrommet/php-fpm-base php-base
 	docker build -f php-base/Dockerfile.cli -t dailygrommet/php-cli-base php-base
-	docker build -f php-base/Dockerfile.fpm -t dailygrommet/php-fpm-base php-base
 	docker build -t dailygrommet/ci-php ci-php
 	docker build -t dailygrommet/awscli aws-cli
 	docker build -t dailygrommet/haproxy haproxy
