@@ -1,5 +1,5 @@
 FROM php:7.3-fpm
-LABEL description="The Grommet PHP CLI Base"
+LABEL description="The Grommet PHP FPM Base"
 LABEL maintainer="todd@thegrommet.com"
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
