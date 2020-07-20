@@ -12,7 +12,7 @@ help:
 	@echo "Targets:"
 	@echo "    help       Display this help text"
 	@echo "    all        build, tag, and push images"
-	@echo "    build      build all images"
+	@echo "    build      build images"
 	@echo "    tag        tag latest images"
 	@echo "    push       push images to docker hub"
 	@echo
@@ -30,9 +30,11 @@ build:
 	docker build -f php-base/Dockerfile -t dailygrommet/php-fpm-base php-base
 	docker build -f php-base/Dockerfile.cli -t dailygrommet/php-cli-base php-base
 	docker build -t dailygrommet/ci-php ci-php
+ifndef PHP_ONLY
 	docker build -t dailygrommet/awscli aws-cli
 	docker build -t dailygrommet/haproxy haproxy
 	docker build -t dailygrommet/varnish varnish
+endif
 
 tag:
 	docker tag dailygrommet/php-cli-base:latest dailygrommet/php-cli-base:$(TAG)
@@ -44,6 +46,8 @@ push:
 	docker push dailygrommet/php-cli-base:$(TAG)
 	docker push dailygrommet/php-fpm-base:$(TAG)
 	docker push dailygrommet/ci-php:$(TAG)
+ifndef PHP_ONLY
 #	docker push dailygrommet/awscli:latest
 #	docker push dailygrommet/haproxy:latest
 #	docker push dailygrommet/varnish:latest
+endif
