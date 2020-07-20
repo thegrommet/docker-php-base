@@ -2,6 +2,8 @@ FROM dailygrommet/php-cli-base
 LABEL description="The Grommet PHP for CI"
 LABEL maintainer="aria@thegrommet.com"
 
+# PHP Xdebug extension is required for PHPUnit test clover.xml output
+
 RUN apt-get install -y \
     libappindicator3-1 \
     fonts-liberation \
