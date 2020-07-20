@@ -38,6 +38,7 @@ tag:
 	docker tag dailygrommet/php-cli-base:latest dailygrommet/php-cli-base:$(TAG)
 	docker tag dailygrommet/php-fpm-base:latest dailygrommet/php-fpm-base:$(TAG)
 	docker tag dailygrommet/ci-php:latest dailygrommet/ci-php:$(TAG)
+	docker rmi dailygrommet/php-cli-base:latest dailygrommet/php-fpm-base:latest dailygrommet/ci-php:latest
 
 push:
 	docker push dailygrommet/php-cli-base:$(TAG)
