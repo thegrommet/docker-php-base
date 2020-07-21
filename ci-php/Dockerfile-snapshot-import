@@ -1,0 +1,15 @@
+FROM dailygrommet/php-cli-base
+LABEL description="The Grommet PHP for CI Snapshot Import"
+LABEL maintainer="jason.grim@thegrommet.com"
+
+RUN docker-php-source extract \
+    && docker-php-ext-configure pcntl \
+    && docker-php-ext-install -j$(nproc) pcntl \
+    && docker-php-source delete
+
+RUN groupadd --gid 3434 ci \
+  && useradd --uid 3434 --gid ci --shell /bin/bash --create-home ci
+
+USER ci
+
+CMD ["/bin/sh"]

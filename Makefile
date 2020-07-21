@@ -30,6 +30,7 @@ build:
 	docker build -f php-base/Dockerfile -t dailygrommet/php-fpm-base php-base
 	docker build -f php-base/Dockerfile.cli -t dailygrommet/php-cli-base php-base
 	docker build -t dailygrommet/ci-php ci-php
+	docker build -t dailygrommet/ci-php:snapshot-import -f ci-php/Dockerfile-snapshot-import ci-php
 ifndef PHP_ONLY
 	docker build -t dailygrommet/awscli aws-cli
 	docker build -t dailygrommet/haproxy haproxy
@@ -46,6 +47,7 @@ push:
 	docker push dailygrommet/php-cli-base:$(TAG)
 	docker push dailygrommet/php-fpm-base:$(TAG)
 	docker push dailygrommet/ci-php:$(TAG)
+	docker push dailygrommet/ci-php:snapshot-import
 ifndef PHP_ONLY
 #	docker push dailygrommet/awscli:latest
 #	docker push dailygrommet/haproxy:latest
