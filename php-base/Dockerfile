@@ -10,6 +10,8 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     unzip \
     nodejs \
     aspell-en \
+    gcc \
+    g++ \
 \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
