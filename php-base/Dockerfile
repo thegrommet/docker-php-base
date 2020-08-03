@@ -9,7 +9,6 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     wget \
     unzip \
     nodejs \
-    aspell-en \
     gcc \
     g++ \
 \
@@ -23,20 +22,12 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     libkrb5-dev \
     libzip-dev \
 && \
-    npm -g install yarn \
-&& \
     docker-php-ext-install -j$(nproc) bcmath exif intl json mbstring pdo_mysql soap xml xsl zip && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install -j$(nproc) gd \
 && \
-    apt-get install -y \
-    libmagickcore-dev \
-    libmagickwand-dev \
-    libmcrypt-dev \
-&& \
-    pecl install apcu imagick mcrypt && \
     yes no | pecl install redis && \
-    docker-php-ext-enable apcu imagick mcrypt redis \
+    docker-php-ext-enable redis \
 && \
     apt-get -y purge *-dev && apt-get clean
 
