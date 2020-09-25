@@ -24,7 +24,7 @@ RUN apt-get install -y \
     dpkg -i google-chrome*.deb && \
     rm google-chrome*.deb \
 && \
-    pecl install xdebug-2.9.6 && \
+    pecl install xdebug-2.9.7 && \
     docker-php-ext-enable xdebug \
 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
