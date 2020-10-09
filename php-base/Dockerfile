@@ -24,7 +24,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     libonig-dev \
 && \
     docker-php-ext-install -j$(nproc) bcmath exif intl json mbstring pdo_mysql soap xml xsl zip && \
-    docker-php-ext-configure gd && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd \
 && \
     yes no | pecl install redis && \
