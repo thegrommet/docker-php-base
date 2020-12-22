@@ -1,5 +1,5 @@
 
-DEFAULT_TAG=7.3
+DEFAULT_TAG=7.4
 ifndef TAG
 	TAG=$(DEFAULT_TAG)
 endif

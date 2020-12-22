@@ -24,7 +24,8 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     libonig-dev \
 && \
     docker-php-ext-configure pcntl && \
-    docker-php-ext-install -j$(nproc) pcntl bcmath exif intl json mbstring pdo_mysql soap xml xsl zip && \
+    docker-php-ext-install -j$(nproc) opcache pcntl bcmath exif intl json mbstring pdo_mysql soap xml xsl zip && \
+    docker-php-ext-enable opcache && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd && \
     pecl install xdebug \
