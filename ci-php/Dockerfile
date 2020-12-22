@@ -24,8 +24,8 @@ RUN apt-get install -y \
     dpkg -i google-chrome*.deb && \
     rm google-chrome*.deb \
 && \
-    pecl install xdebug && \
-    docker-php-ext-enable xdebug \
+    docker-php-ext-enable xdebug && \
+    echo "xdebug.mode = develop,coverage" >>/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

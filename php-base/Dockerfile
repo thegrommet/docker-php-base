@@ -26,7 +26,8 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     docker-php-ext-configure pcntl && \
     docker-php-ext-install -j$(nproc) pcntl bcmath exif intl json mbstring pdo_mysql soap xml xsl zip && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) gd \
+    docker-php-ext-install -j$(nproc) gd && \
+    pecl install xdebug \
 && \
     yes no | pecl install redis && \
     docker-php-ext-enable redis \
